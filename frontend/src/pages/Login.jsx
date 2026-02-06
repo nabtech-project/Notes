@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+import API_URL from "../config";
 
 export default function Login() {
     const [name, setName] = useState("");
@@ -11,11 +12,11 @@ export default function Login() {
     const handleAuth = async () => {
         try {
             if (isRegister) {
-                await axios.post("http://localhost:5000/api/auth/register", { name, email, password });
+                await axios.post(`${API_URL}/auth/register`, { name, email, password });
                 alert("Registered successfully! Please login.");
                 setIsRegister(false);
             } else {
-                const res = await axios.post("http://localhost:5000/api/auth/login", { email, password });
+                const res = await axios.post(`${API_URL}/auth/login`, { email, password });
                 localStorage.setItem("token", res.data.token);
                 window.location.href = "/notes";
             }
